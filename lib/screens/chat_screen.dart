@@ -1,12 +1,43 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../widgets/chat/messages.dart';
 import '../widgets/chat/new_message.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   // const ChatScreen({Key? key}) : super(key: key);
+
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final fbm = FirebaseMessaging();
+
+    if (Platform.isIOS) {
+      fbm.requestNotificationPermissions();
+      fbm.configure(onMessage: (msg) {
+        print(msg);
+        return; //as this returns future we have to return something.
+      }, onLaunch: (msg) {
+        print(msg);
+        return; //as this returns future we have to return something.
+      }, onResume: (msg) {
+        print(msg);
+        return;
+      });
+      //This step will ask ios users for push notifications permission.
+
+    }
+    fbm.subscribeToTopic('chat');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +46,7 @@ class ChatScreen extends StatelessWidget {
         title: Text('Flutter Chat'),
         actions: [
           DropdownButton(
+            underline: Container(),
             items: [
               DropdownMenuItem(
                 child: Container(

@@ -6,13 +6,14 @@ import 'package:intl/intl.dart';
 import '../circular_loading_spinner.dart';
 import './message_bubble.dart';
 
+// ignore: must_be_immutable
 class Messages extends StatelessWidget {
   var datesMessage;
   final _defaultProfileImage =
       'https://firebasestorage.googleapis.com/v0/b/mychat-theflutterapp.appspot.com/o/user_images%2Fperson_placeholder.png?alt=media&token=d731be98-e167-46fe-a5c1-52744d3fdf23';
 
   String getDateStr(var date) {
-    final DateFormat formatter = DateFormat('d MMMMMMM, yyyy');
+    // final DateFormat formatter = DateFormat('d MMMMMMM, yyyy');
     var dateStr = date.toDate();
     return DateFormat.yMMMMd().format(dateStr);
     // return formatter.format(dateStr);
@@ -60,7 +61,7 @@ class Messages extends StatelessWidget {
                 if (index != chatDocs.length - 1)
                   nextDate = getDateStr(chatDocs[index + 1]['createdAt']);
 
-                print('for $index : $datesMessage $currentDate');
+                // print('for $index : $datesMessage $currentDate');
                 bool loadNew = (index == chatDocs.length - 1) ||
                     (index != chatDocs.length - 1 &&
                         chatDocs[index + 1]['userId'] !=
