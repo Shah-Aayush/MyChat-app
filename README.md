@@ -1,16 +1,40 @@
-# chat_app
+# MyChat app
 
-A new Flutter project.
+A chat app built with flutter and firebase.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+MyChat is a simple chat app through which people can chat with another users. Which uses Firebase and its various functionalities which includes Firebase Messaging, Firebase cloud storage, Firebase Functions and Firestore Database.
 
-A few resources to get you started if this is your first Flutter project:
+### Key Features
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Chat with people.
+- One can choose profile picture or set default profile pic.
+- Get message notification.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## App Screenshots : 
+
+Login | Signup
+:-------------------------:|:-------------------------:
+<img src="https://github.com/Shah-Aayush/MyChat-app/blob/master/assets/images/app_screenshots/Login.png" alt="Login" width="292.5" height="633"> | <img src="https://github.com/Shah-Aayush/MyChat-app/blob/master/assets/images/app_screenshots/Signup.png" alt="Signup" width="292.5" height="633">
+
+Chats | Notification
+:-------------------------:|:-------------------------:
+<img src="https://github.com/Shah-Aayush/MyChat-app/blob/master/assets/images/app_screenshots/Chats.png" alt="Chats" width="292.5" height="633"> | <img src="https://github.com/Shah-Aayush/MyChat-app/blob/master/assets/images/app_screenshots/Notification.png" alt="Notification" width="292.5" height="633">
+
+***
+
+# Explore the app 😁
+
+Login and Registration
+:-------------------------:
+![Login and Register](https://github.com/Shah-Aayush/MyChat-app/blob/master/assets/GIFs/login_and_register_screen.gif) 
+
+Chat Screen 
+:-------------------------:
+![Chat Screen](https://github.com/Shah-Aayush/MyChat-app/blob/master/assets/GIFs/Chatting.gif)  
+
+Notification
+:-------------------------:
+![Push Notification](https://github.com/Shah-Aayush/MyChat-app/blob/master/assets/GIFs/Notification.gif)  
