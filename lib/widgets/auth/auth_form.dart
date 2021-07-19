@@ -40,6 +40,7 @@ class _AuthFormState extends State<AuthForm>
   var _fadeAnimation;
   var _slideAnimation;
   var _userImageFile;
+  var showPassword = false;
 
   bool isValidMail(String mailId) {
     return RegExp(r"^[^\s@]+@[^\s@]+\.[^\s@]+$").hasMatch(mailId);
@@ -302,6 +303,12 @@ class _AuthFormState extends State<AuthForm>
                                     child: SlideTransition(
                                       position: _slideAnimation,
                                       child: TextFormField(
+                                        autocorrect:
+                                            false, //can be annoying for some user!
+                                        textCapitalization: TextCapitalization
+                                            .none, //not capitalize characters.
+                                        enableSuggestions:
+                                            false, //turn off suggestions.
                                         key: ValueKey('email'),
                                         keyboardType:
                                             TextInputType.emailAddress,
@@ -340,6 +347,10 @@ class _AuthFormState extends State<AuthForm>
                                       child: SlideTransition(
                                         position: _slideAnimation,
                                         child: TextFormField(
+                                          autocorrect: true,
+                                          textCapitalization:
+                                              TextCapitalization.words,
+                                          enableSuggestions: false,
                                           key: ValueKey('username'),
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
@@ -369,13 +380,31 @@ class _AuthFormState extends State<AuthForm>
                                       position: _slideAnimation,
                                       child: TextFormField(
                                         obscureText:
-                                            true, //hides the text entered by the user.
+                                            !showPassword, //hides the text entered by the user.
                                         key: ValueKey('password'),
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: "Password",
                                           hintStyle: TextStyle(
                                             color: Colors.grey[400],
+                                          ),
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              print(
+                                                  'password show : $showPassword');
+                                              setState(() {
+                                                showPassword = !showPassword;
+                                              });
+                                            },
+                                            icon: showPassword
+                                                ? Icon(
+                                                    Icons.visibility_off,
+                                                    color: Colors.blue,
+                                                  )
+                                                : Icon(
+                                                    Icons.visibility,
+                                                    color: Colors.blue,
+                                                  ),
                                           ),
                                         ),
                                         validator: (value) {
