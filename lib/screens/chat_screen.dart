@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,23 +19,24 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    final fbm = FirebaseMessaging();
+    // final fbm = FirebaseMessaging();
+    final fbm = FirebaseMessaging.instance;
 
-    if (Platform.isIOS) {
-      fbm.requestNotificationPermissions();
-      fbm.configure(onMessage: (msg) {
-        print(msg);
-        return; //as this returns future we have to return something.
-      }, onLaunch: (msg) {
-        print(msg);
-        return; //as this returns future we have to return something.
-      }, onResume: (msg) {
-        print(msg);
-        return;
-      });
-      //This step will ask ios users for push notifications permission.
+    // if (Platform.isIOS) {
+    fbm.requestPermission();
+    FirebaseMessaging.onMessage.listen((message) {
+      print(message);
+      return;
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print(message);
+      return;
+    });
+    fbm.subscribeToTopic('chat');
 
-    }
+    //This step will ask ios users for push notifications permission.
+
+    // }
     fbm.subscribeToTopic('chat');
   }
 
@@ -43,7 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Chat'),
+        title: Text('MyChat'),
         actions: [
           DropdownButton(
             underline: Container(),
