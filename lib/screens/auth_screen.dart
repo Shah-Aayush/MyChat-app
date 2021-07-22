@@ -70,7 +70,7 @@ class _AuthScreenState extends State<AuthScreen> {
     bool isLogin,
   ) async {
     print('Data received : $email $password $username $isLogin');
-    AuthResult authResult;
+    UserCredential authResult;
     try {
       setState(() {
         _isLoading = true;
@@ -94,19 +94,25 @@ class _AuthScreenState extends State<AuthScreen> {
           final ref = FirebaseStorage.instance.ref().child('user_images').child(
               '${authResult.user.uid}.jpg'); //this ref() will point at main root bucket. user_iamges folder will be created if not present.
 
+          //NEWER APPROACH :
           //profile pic upload
-          await ref
-              .putFile(image)
-              .onComplete; //uploads the image. we can also set meta data along with this. This returns a kind of future which StorageUploadTask. if we apply onComplete then we can await here!
+          await ref.putFile(
+              image); //uploads the image. we can also set meta data along with this. This returns a kind of future which StorageUploadTask. if we apply onComplete then we can await here!
+          //profile pic upload
+
+          //OLDER APPROACH :
+          // await ref
+          //     .putFile(image)
+          //     .onComplete; //uploads the image. we can also set meta data along with this. This returns a kind of future which StorageUploadTask. if we apply onComplete then we can await here!
 
           //receiving url for just uploaded image.
           url = await ref.getDownloadURL();
         }
 
-        await Firestore.instance
+        await FirebaseFirestore.instance
             .collection('users')
-            .document(authResult.user.uid)
-            .setData({
+            .doc(authResult.user.uid)
+            .set({
           'username': username,
           'email': email,
           'image_url': url,

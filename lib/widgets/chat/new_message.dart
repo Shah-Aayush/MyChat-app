@@ -13,18 +13,21 @@ class _NewMessageState extends State<NewMessage> {
 
   void _sendMessage() async {
     FocusScope.of(context).unfocus(); //hides the keyboard.
-    final user = await FirebaseAuth.instance.currentUser();
-    final userData =
-        await Firestore.instance.collection('users').document(user.uid).get();
-    print('send message Imageurl received : ${userData['image_url']}');
+    final user = FirebaseAuth.instance.currentUser;
+    // final user = await FirebaseAuth.instance.currentUser();
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+    print('send message Imageurl received : ${userData.data()['image_url']}');
 
-    Firestore.instance.collection('chat').add(
+    FirebaseFirestore.instance.collection('chat').add(
       {
         'text': _controller.text,
         'createdAt': Timestamp.now(), //this is from cloud_firestore.
         'userId': user.uid,
-        'username': userData['username'],
-        'userImage': userData['image_url'],
+        'username': userData.data()['username'],
+        'userImage': userData.data()['image_url'],
       },
     );
     setState(() {

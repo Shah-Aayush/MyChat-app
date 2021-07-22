@@ -80,7 +80,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
     print('checking ...');
     var imagePicker = ImagePicker();
     bool isCamera = await _showPickerDialogMessage();
-    var _pickedImageFile = await imagePicker.getImage(
+    var _pickedImageFile = await imagePicker.pickImage(
       source: isCamera ? ImageSource.camera : ImageSource.gallery,
       imageQuality:
           50, //compresses image. here 50 means 50% quality. 100% means original image! We are doing this to save some space in firebase and also making image uploading fast when user signup.
@@ -90,7 +90,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
       setState(() {
         _pickedImage = File(_pickedImageFile.path);
         isProfilePicSet = true;
-      }); 
+      });
 
       widget.imagePickFn(_pickedImage); //forwarding image file.
     } else {
@@ -122,7 +122,8 @@ class _UserImagePickerState extends State<UserImagePicker> {
         ),
         child: isProfilePicSet
             ? CircleAvatar(
-                backgroundImage: FileImage(_pickedImage),
+                backgroundImage:
+                    _pickedImage == null ? null : FileImage(_pickedImage),
               )
             : Padding(
                 padding: EdgeInsets.all(4.0),
