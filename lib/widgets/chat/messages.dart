@@ -95,8 +95,7 @@ class Messages extends StatelessWidget {
             final nextMessageDate =
                 chatDocs[index + 1].data()['createdAt'].toDate();
             if (!_isSameDate(currentMessageDate, nextMessageDate)) {
-              var dateMessage =
-                  getDateStr(chatDocs[index - 1].data()['createdAt']);
+              var dateMessage = getDateStr(chatDocs[index].data()['createdAt']);
               print('\tDate separator. || $dateMessage');
               return _buildDateSeparator(dateMessage);
             }
